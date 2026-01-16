@@ -1,4 +1,5 @@
 import { useData, type Education as EducationType } from '../context/DataContext';
+import { EducationSkeleton } from './Skeletons';
 
 export default function Education() {
   const { education, loading } = useData();
@@ -6,8 +7,11 @@ export default function Education() {
   if (loading) {
     return (
       <section id="education" className="py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto flex justify-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-4 border-accent-500 border-t-transparent"></div>
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">
+            Education
+          </h2>
+          <EducationSkeleton />
         </div>
       </section>
     );

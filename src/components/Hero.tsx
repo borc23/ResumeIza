@@ -1,5 +1,6 @@
 import { useData } from '../context/DataContext';
 import floatingImage from '../assets/Image-removebg-preview.png';
+import { HeroSkeleton } from './Skeletons';
 
 export default function Hero() {
   const { profile, loading } = useData();
@@ -7,9 +8,7 @@ export default function Hero() {
   if (loading) {
     return (
       <section id="about" className="pt-24 pb-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto flex justify-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-4 border-accent-500 border-t-transparent"></div>
-        </div>
+        <HeroSkeleton />
       </section>
     );
   }

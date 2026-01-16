@@ -1,4 +1,5 @@
 import { useData, type SkillCategory } from '../context/DataContext';
+import { SkillsSkeleton } from './Skeletons';
 
 export default function Skills() {
   const { skillCategories, loading } = useData();
@@ -10,8 +11,11 @@ export default function Skills() {
   if (loading) {
     return (
       <section id="skills" className="py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto flex justify-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-4 border-accent-500 border-t-transparent"></div>
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">
+            Skills & Expertise
+          </h2>
+          <SkillsSkeleton />
         </div>
       </section>
     );

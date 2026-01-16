@@ -1,4 +1,5 @@
 import { useData, type Project } from '../context/DataContext';
+import { ProjectSkeleton } from './Skeletons';
 
 export default function Projects() {
   const { projects, loading } = useData();
@@ -9,8 +10,18 @@ export default function Projects() {
   if (loading) {
     return (
       <section id="projects" className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-primary-900/30">
-        <div className="max-w-6xl mx-auto flex justify-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-4 border-accent-500 border-t-transparent"></div>
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">
+            Projects
+          </h2>
+          <div className="mb-12">
+             <div className="h-8 w-48 bg-gray-200 dark:bg-primary-800/50 rounded animate-pulse mb-6"></div>
+             <div className="grid gap-8 md:grid-cols-2">
+               {[1, 2, 3, 4].map((i) => (
+                 <ProjectSkeleton key={i} />
+               ))}
+             </div>
+          </div>
         </div>
       </section>
     );

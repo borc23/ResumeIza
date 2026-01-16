@@ -1,4 +1,5 @@
 import { useData, type Experience as ExperienceType } from '../context/DataContext';
+import { ExperienceSkeleton } from './Skeletons';
 
 export default function Experience() {
   const { experiences, loading } = useData();
@@ -6,8 +7,18 @@ export default function Experience() {
   if (loading) {
     return (
       <section id="experience" className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-primary-900/30">
-        <div className="max-w-6xl mx-auto flex justify-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-4 border-accent-500 border-t-transparent"></div>
+         <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">
+            Work Experience
+          </h2>
+          <div className="relative">
+             <div className="absolute left-0 md:left-1/2 transform md:-translate-x-px h-full w-0.5 bg-gray-200 dark:bg-primary-800/50"></div>
+             <div className="space-y-12">
+               {[1, 2, 3].map((i) => (
+                 <ExperienceSkeleton key={i} />
+               ))}
+             </div>
+          </div>
         </div>
       </section>
     );
