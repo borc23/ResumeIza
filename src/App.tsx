@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, lazy, Suspense } from 'react'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import Experience from './components/Experience'
@@ -8,9 +8,10 @@ import Skills from './components/Skills'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import Chatbot from './components/Chatbot'
-import AdminLogin from './components/admin/AdminLogin'
-import AdminPanel from './components/admin/AdminPanel'
 import { useAuth } from './context/AuthContext'
+
+const AdminLogin = lazy(() => import('./components/admin/AdminLogin'))
+const AdminPanel = lazy(() => import('./components/admin/AdminPanel'))
 
 function App() {
   const [currentPath, setCurrentPath] = useState(window.location.pathname)
@@ -31,7 +32,15 @@ function App() {
         </div>
       )
     }
-    return user ? <AdminPanel /> : <AdminLogin />
+    return (
+      <Suspense fallback={
+        <div className="min-h-screen bg-white dark:bg-black flex items-center justify-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-4 border-accent-500 border-t-transparent"></div>
+        </div>
+      }>
+        {user ? <AdminPanel /> : <AdminLogin />}
+      </Suspense>
+    )
   }
 
   // Main portfolio
