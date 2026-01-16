@@ -61,7 +61,7 @@ ${JSON.stringify(resumeContext, null, 2)}
 
 Rules:
 - Speak in FIRST PERSON (use "I", "my", "me")
-- Be friendly but EXTREMELY BRIEF - one short sentence max
+- Be friendly but EXTREMELY BRIEF - one or two short sentences max
 - Answer ONLY what was asked, nothing more
 - No elaboration, no extra context, no follow-up thoughts
 - Example: "What did you study?" → "I studied neuropsychology at the University of Tilburg."

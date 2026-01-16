@@ -9,7 +9,7 @@ interface Message {
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'bot', text: "Hi! I'm Iza's assistant. Ask me anything about her experience, skills, or projects!" }
+    { role: 'bot', text: "Hi! my name is Iza. Ask me anything." }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
