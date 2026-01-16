@@ -63,7 +63,7 @@ export default function Hero() {
             <p className="text-xl md:text-2xl text-accent-gradient font-medium mb-4">
               {profile.title}
             </p>
-            <p className="text-gray-600 dark:text-gray-300 text-lg max-w-2xl mb-6">
+            <p className="text-gray-600 dark:text-gray-300 text-lg max-w-2xl mb-6 whitespace-pre-line">
               {profile.bio}
             </p>
 
