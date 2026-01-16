@@ -53,7 +53,6 @@ export default function Hero() {
                 }}
               />
             </div>
-            <div className="absolute -bottom-2 -right-2 bg-accent-500 w-6 h-6 rounded-full border-4 border-white dark:border-primary-900"></div>
           </div>
 
           {/* Profile Info */}
