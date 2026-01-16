@@ -7,7 +7,7 @@ import Projects from './components/Projects'
 import Skills from './components/Skills'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
-import ChatbotPlaceholder from './components/ChatbotPlaceholder'
+import Chatbot from './components/Chatbot'
 import AdminLogin from './components/admin/AdminLogin'
 import AdminPanel from './components/admin/AdminPanel'
 import { useAuth } from './context/AuthContext'
@@ -47,7 +47,7 @@ function App() {
         <Contact />
       </main>
       <Footer />
-      <ChatbotPlaceholder />
+      <Chatbot />
     </div>
   )
 }

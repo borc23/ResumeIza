@@ -4,7 +4,7 @@ import { useState } from 'react';
 export default function ChatbotPlaceholder() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<{ role: 'user' | 'bot'; text: string }[]>([
-    { role: 'bot', text: "Hi! I'm Iza's assistant. Ask me anything about her experience, skills, or projects! (AI integration coming soon)" }
+    { role: 'bot', text: "Hi! I'm Iza. Ask me anything about my experience, skills, or anything you might need" }
   ]);
   const [input, setInput] = useState('');
 
@@ -17,7 +17,7 @@ export default function ChatbotPlaceholder() {
     setTimeout(() => {
       setMessages(prev => [...prev, { 
         role: 'bot', 
-        text: "Thanks for your question! This chatbot will be enhanced with AI capabilities to answer questions about Iza's resume and projects. Stay tuned!" 
+        text: "Thanks for your question! I can't anmswer that right now, but I'm learning to be more helpful every day." 
       }]);
     }, 500);
 
