@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTheme } from '../context/ThemeContext';
 import { useData } from '../context/DataContext';
 
@@ -6,6 +6,25 @@ export default function Header() {
   const { theme, toggleTheme } = useTheme();
   const { profile, experiences, education, projects, skillCategories } = useData();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('#about');
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ['about', 'experience', 'education', 'projects', 'skills', 'contact'];
+      const scrollPosition = window.scrollY + 100; // Offset for header
+
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element && element.offsetTop <= scrollPosition && (element.offsetTop + element.offsetHeight) > scrollPosition) {
+          setActiveSection(`#${section}`);
+          break;
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Only show nav links for sections that have data
   const navLinks = [
@@ -34,7 +53,11 @@ export default function Header() {
               <a
                 key={link.href}
                 href={link.href}
-                className="text-gray-600 dark:text-gray-300 hover:text-accent-600 dark:hover:text-accent-500 transition-colors"
+                className={`transition-colors ${
+                  activeSection === link.href
+                    ? 'text-accent-600 dark:text-accent-500 font-medium'
+                    : 'text-gray-600 dark:text-gray-300 hover:text-accent-600 dark:hover:text-accent-500'
+                }`}
               >
                 {link.label}
               </a>
@@ -84,7 +107,11 @@ export default function Header() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setIsMenuOpen(false)}
-                className="block py-2 text-gray-600 dark:text-gray-300 hover:text-accent-600 dark:hover:text-accent-500"
+                className={`block py-2 ${
+                  activeSection === link.href
+                    ? 'text-accent-600 dark:text-accent-500 font-medium'
+                    : 'text-gray-600 dark:text-gray-300 hover:text-accent-600 dark:hover:text-accent-500'
+                }`}
               >
                 {link.label}
               </a>

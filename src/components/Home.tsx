@@ -7,6 +7,7 @@ import Skills from './Skills'
 import Contact from './Contact'
 import Footer from './Footer'
 import Chatbot from './Chatbot'
+import ScrollToTop from './ScrollToTop'
 
 export default function Home() {
   return (
@@ -21,6 +22,7 @@ export default function Home() {
         <Contact />
       </main>
       <Footer />
+      <ScrollToTop />
       <Chatbot />
     </div>
   )
