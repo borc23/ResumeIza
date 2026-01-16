@@ -1,5 +1,6 @@
 import { useEffect, useState, lazy, Suspense } from 'react'
 import { Toaster } from 'react-hot-toast'
+import { Helmet } from 'react-helmet-async'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import Experience from './components/Experience'
@@ -10,6 +11,7 @@ import Contact from './components/Contact'
 import Footer from './components/Footer'
 import Chatbot from './components/Chatbot'
 import { useAuth } from './context/AuthContext'
+import { useData } from './context/DataContext'
 
 const AdminLogin = lazy(() => import('./components/admin/AdminLogin'))
 const AdminPanel = lazy(() => import('./components/admin/AdminPanel'))
@@ -17,6 +19,7 @@ const AdminPanel = lazy(() => import('./components/admin/AdminPanel'))
 function App() {
   const [currentPath, setCurrentPath] = useState(window.location.pathname)
   const { user, loading } = useAuth()
+  const { profile, projects } = useData()
 
   useEffect(() => {
     const handlePopState = () => setCurrentPath(window.location.pathname)
@@ -45,8 +48,19 @@ function App() {
   }
 
   // Main portfolio
+  const projectKeywords = projects.map(p => p.title).join(', ')
+
   return (
     <div className="min-h-screen bg-white dark:bg-black text-gray-900 dark:text-white">
+      <Helmet>
+        <title>{profile.name || 'Portfolio'} | {profile.title || 'Developer'}</title>
+        <meta name="description" content={profile.bio || 'Professional Portfolio'} />
+        <meta name="keywords" content={`portfolio, resume, developer, ${profile.title}, ${projectKeywords}`} />
+        <meta property="og:title" content={`${profile.name || 'Portfolio'} | ${profile.title || 'Developer'}`} />
+        <meta property="og:description" content={profile.bio || 'Professional Portfolio'} />
+        <meta property="og:image" content={profile.profileImage} />
+        <meta property="twitter:card" content="summary_large_image" />
+      </Helmet>
       <Toaster position="bottom-right" toastOptions={{
         className: 'dark:bg-primary-800 dark:text-white',
         style: {
