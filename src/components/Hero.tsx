@@ -1,4 +1,5 @@
 import { useData } from '../context/DataContext';
+import floatingImage from '../assets/Image-removebg-preview.png';
 
 export default function Hero() {
   const { profile, loading } = useData();
@@ -27,6 +28,15 @@ export default function Hero() {
     <section id="about" className="pt-24 pb-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
       {/* Subtle orange glow overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-accent-700/5 via-transparent to-primary-500/10 dark:from-accent-700/10 dark:to-primary-500/20 pointer-events-none"></div>
+
+      {/* Floating decorative image */}
+      <div className="absolute bottom-0 right-0 md:right-10 lg:right-20 pointer-events-none opacity-80 hidden md:block">
+        <img
+          src={floatingImage}
+          alt=""
+          className="w-48 lg:w-64 h-auto animate-float"
+        />
+      </div>
 
       <div className="max-w-6xl mx-auto relative">
         <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">

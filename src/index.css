@@ -86,3 +86,17 @@ html.dark {
 .glow-purple {
   box-shadow: 0 0 30px rgba(123, 44, 191, 0.4), 0 0 60px rgba(74, 14, 90, 0.2);
 }
+
+/* Floating animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
