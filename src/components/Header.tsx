@@ -11,7 +11,6 @@ export default function Header() {
   useEffect(() => {
     const handleScroll = () => {
       const sections = ['about', 'experience', 'education', 'projects', 'testimonials', 'skills', 'contact'];
-      const scrollPosition = window.scrollY + 100; // Offset for header
 
       for (const section of sections) {
         const element = document.getElementById(section);
