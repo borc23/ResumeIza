@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useData } from '../context/DataContext';
+import toast from 'react-hot-toast';
 
 const FORMSPREE_ID = "xwvvpana";
 
@@ -11,13 +12,10 @@ export default function Contact() {
     message: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setError(null);
 
     try {
       const response = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
@@ -33,14 +31,13 @@ export default function Contact() {
       });
 
       if (response.ok) {
-        setSubmitted(true);
+        toast.success("Message Sent! 🚀");
         setFormData({ name: '', email: '', message: '' });
-        setTimeout(() => setSubmitted(false), 5000);
       } else {
         throw new Error('Failed to send message');
       }
     } catch {
-      setError('Failed to send message. Please try again or email directly.');
+      toast.error('Failed to send message. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -176,18 +173,6 @@ export default function Contact() {
                   </>
                 )}
               </button>
-
-              {submitted && (
-                <div className="p-4 bg-accent-500/20 text-accent-700 dark:text-accent-400 rounded-lg text-center border border-accent-500/30">
-                  Thank you! Your message has been sent.
-                </div>
-              )}
-
-              {error && (
-                <div className="p-4 bg-red-500/20 text-red-700 dark:text-red-400 rounded-lg text-center border border-red-500/30">
-                  {error}
-                </div>
-              )}
             </form>
           </div>
         </div>

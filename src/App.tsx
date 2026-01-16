@@ -1,4 +1,5 @@
 import { useEffect, useState, lazy, Suspense } from 'react'
+import { Toaster } from 'react-hot-toast'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import Experience from './components/Experience'
@@ -46,6 +47,13 @@ function App() {
   // Main portfolio
   return (
     <div className="min-h-screen bg-white dark:bg-black text-gray-900 dark:text-white">
+      <Toaster position="bottom-right" toastOptions={{
+        className: 'dark:bg-primary-800 dark:text-white',
+        style: {
+          background: '#333',
+          color: '#fff',
+        },
+      }} />
       <Header />
       <main>
         <Hero />
