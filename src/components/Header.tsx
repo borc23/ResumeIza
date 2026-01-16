@@ -4,20 +4,23 @@ import { useData } from '../context/DataContext';
 
 export default function Header() {
   const { theme, toggleTheme } = useTheme();
-  const { profile, experiences, education, projects, skillCategories } = useData();
+  const { profile, experiences, education, projects, testimonials, skillCategories } = useData();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('#about');
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['about', 'experience', 'education', 'projects', 'skills', 'contact'];
+      const sections = ['about', 'experience', 'education', 'projects', 'testimonials', 'skills', 'contact'];
       const scrollPosition = window.scrollY + 100; // Offset for header
 
       for (const section of sections) {
         const element = document.getElementById(section);
-        if (element && element.offsetTop <= scrollPosition && (element.offsetTop + element.offsetHeight) > scrollPosition) {
-          setActiveSection(`#${section}`);
-          break;
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          if (rect.top <= 100 && rect.bottom > 100) {
+            setActiveSection(`#${section}`);
+            break;
+          }
         }
       }
     };
@@ -32,6 +35,7 @@ export default function Header() {
     { href: '#experience', label: 'Experience', show: experiences.length > 0 },
     { href: '#education', label: 'Education', show: education.length > 0 },
     { href: '#projects', label: 'Projects', show: projects.length > 0 },
+    { href: '#testimonials', label: 'Testimonials', show: testimonials.length > 0 },
     { href: '#skills', label: 'Skills', show: skillCategories.length > 0 },
     { href: '#contact', label: 'Contact', show: true },
   ].filter(link => link.show);

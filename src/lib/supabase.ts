@@ -54,6 +54,16 @@ export interface DbProject {
   sort_order: number;
 }
 
+export interface DbTestimonial {
+  id: number;
+  name: string;
+  role: string;
+  company: string;
+  content: string;
+  image: string | null;
+  created_at: string;
+}
+
 export interface DbSkillCategory {
   id: number;
   category: string;

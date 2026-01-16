@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState, type ReactNode, useCallback } from 'react';
-import { supabase, type DbProfile, type DbExperience, type DbEducation, type DbProject, type DbSkillCategory, type DbSkill } from '../lib/supabase';
+import { supabase, type DbProfile, type DbExperience, type DbEducation, type DbProject, type DbTestimonial, type DbSkillCategory, type DbSkill } from '../lib/supabase';
 
 // Define types for the app's data structures
 export interface Profile {
@@ -48,6 +48,15 @@ export interface Project {
   featured: boolean;
 }
 
+export interface Testimonial {
+  id: number;
+  name: string;
+  role: string;
+  company: string;
+  content: string;
+  image?: string;
+}
+
 export interface SkillCategory {
   id: number;
   category: string;
@@ -75,6 +84,7 @@ interface DataContextType {
   experiences: Experience[];
   education: Education[];
   projects: Project[];
+  testimonials: Testimonial[];
   skillCategories: SkillCategory[];
   loading: boolean;
   error: string | null;
@@ -90,6 +100,9 @@ interface DataContextType {
   addProject: (data: Omit<DbProject, 'id'>) => Promise<void>;
   updateProject: (id: number, data: Partial<DbProject>) => Promise<void>;
   deleteProject: (id: number) => Promise<void>;
+  addTestimonial: (data: Omit<DbTestimonial, 'id' | 'created_at'>) => Promise<void>;
+  updateTestimonial: (id: number, data: Partial<DbTestimonial>) => Promise<void>;
+  deleteTestimonial: (id: number) => Promise<void>;
   addSkillCategory: (data: Omit<DbSkillCategory, 'id'>) => Promise<void>;
   updateSkillCategory: (id: number, data: Partial<DbSkillCategory>) => Promise<void>;
   deleteSkillCategory: (id: number) => Promise<void>;
@@ -105,6 +118,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
   const [experiences, setExperiences] = useState<Experience[]>([]);
   const [education, setEducation] = useState<Education[]>([]);
   const [projects, setProjects] = useState<Project[]>([]);
+  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [skillCategories, setSkillCategories] = useState<SkillCategory[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -192,6 +206,23 @@ export function DataProvider({ children }: { children: ReactNode }) {
           liveUrl: proj.live_url || undefined,
           githubUrl: proj.github_url || undefined,
           featured: proj.featured,
+        })));
+      }
+
+      // Fetch testimonials
+      const { data: testData } = await supabase
+        .from('testimonials')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (testData) {
+        setTestimonials(testData.map(t => ({
+          id: t.id,
+          name: t.name,
+          role: t.role,
+          company: t.company,
+          content: t.content,
+          image: t.image || undefined,
         })));
       }
 
@@ -300,6 +331,25 @@ export function DataProvider({ children }: { children: ReactNode }) {
     await refreshData();
   };
 
+  // Testimonial CRUD
+  const addTestimonial = async (data: Omit<DbTestimonial, 'id' | 'created_at'>) => {
+    const { error } = await supabase.from('testimonials').insert(data);
+    if (error) throw error;
+    await refreshData();
+  };
+
+  const updateTestimonial = async (id: number, data: Partial<DbTestimonial>) => {
+    const { error } = await supabase.from('testimonials').update(data).eq('id', id);
+    if (error) throw error;
+    await refreshData();
+  };
+
+  const deleteTestimonial = async (id: number) => {
+    const { error } = await supabase.from('testimonials').delete().eq('id', id);
+    if (error) throw error;
+    await refreshData();
+  };
+
   // Skill Category CRUD
   const addSkillCategory = async (data: Omit<DbSkillCategory, 'id'>) => {
     const { error } = await supabase.from('skill_categories').insert(data);
@@ -344,6 +394,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
       experiences,
       education,
       projects,
+      testimonials,
       skillCategories,
       loading,
       error,
@@ -358,6 +409,9 @@ export function DataProvider({ children }: { children: ReactNode }) {
       addProject,
       updateProject,
       deleteProject,
+      addTestimonial,
+      updateTestimonial,
+      deleteTestimonial,
       addSkillCategory,
       updateSkillCategory,
       deleteSkillCategory,

@@ -3,6 +3,7 @@ import Hero from './Hero'
 import Experience from './Experience'
 import Education from './Education'
 import Projects from './Projects'
+import Testimonials from './Testimonials'
 import Skills from './Skills'
 import Contact from './Contact'
 import Footer from './Footer'
@@ -19,6 +20,7 @@ export default function Home() {
         <Reveal><Experience /></Reveal>
         <Reveal><Education /></Reveal>
         <Reveal><Projects /></Reveal>
+        <Reveal><Testimonials /></Reveal>
         <Reveal><Skills /></Reveal>
         <Reveal><Contact /></Reveal>
       </main>

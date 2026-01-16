@@ -7,8 +7,9 @@ import EducationEditor from './EducationEditor';
 import ProjectsEditor from './ProjectsEditor';
 import SkillsEditor from './SkillsEditor';
 import HiddenGoalsEditor from './HiddenGoalsEditor';
+import TestimonialsEditor from './TestimonialsEditor';
 
-type Tab = 'profile' | 'experience' | 'education' | 'projects' | 'skills' | 'hidden_goals';
+type Tab = 'profile' | 'experience' | 'education' | 'projects' | 'skills' | 'hidden_goals' | 'testimonials';
 
 export default function AdminPanel() {
   const { signOut, user } = useAuth();
@@ -22,6 +23,7 @@ export default function AdminPanel() {
     { id: 'projects', label: 'Projects' },
     { id: 'skills', label: 'Skills' },
     { id: 'hidden_goals', label: 'Hidden Goals' },
+    { id: 'testimonials', label: 'Testimonials' },
   ];
 
   if (loading) {
@@ -88,6 +90,7 @@ export default function AdminPanel() {
           {activeTab === 'projects' && <ProjectsEditor />}
           {activeTab === 'hidden_goals' && <HiddenGoalsEditor />}
           {activeTab === 'skills' && <SkillsEditor />}
+          {activeTab === 'testimonials' && <TestimonialsEditor />}
         </div>
       </div>
     </div>
