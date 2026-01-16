@@ -1,0 +1,88 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  /* Primary - Deep Purple */
+  --color-primary-50: #f5f0ff;
+  --color-primary-100: #ebe0ff;
+  --color-primary-200: #d4bfff;
+  --color-primary-300: #b894ff;
+  --color-primary-400: #9b5de5;
+  --color-primary-500: #7B2CBF;
+  --color-primary-600: #6a1fa8;
+  --color-primary-700: #4A0E5A;
+  --color-primary-800: #2D1B69;
+  --color-primary-900: #1A0033;
+  
+  /* Accent - Orange to Yellow */
+  --color-accent-400: #FFE55C;
+  --color-accent-500: #FFD700;
+  --color-accent-600: #FF9500;
+  --color-accent-700: #FF8C00;
+  
+  /* Secondary - Violet */
+  --color-secondary-500: #A100A1;
+  --color-secondary-600: #7B2CBF;
+  --color-secondary-700: #5a1d8f;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+/* Smooth theme transitions */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Custom scrollbar for dark mode */
+.dark ::-webkit-scrollbar {
+  width: 8px;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: #1A0033;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #4A0E5A;
+  border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #7B2CBF;
+}
+
+/* Gradient utilities */
+.bg-hero-gradient {
+  background: radial-gradient(ellipse at center, #2D1B69 0%, #1A0033 70%, #000000 100%);
+}
+
+.bg-hero-gradient-light {
+  background: radial-gradient(ellipse at center, #ebe0ff 0%, #f5f0ff 70%, #ffffff 100%);
+}
+
+.bg-accent-gradient {
+  background: linear-gradient(135deg, #FF8C00 0%, #FFD700 50%, #FFE55C 100%);
+}
+
+.bg-purple-overlay {
+  background: linear-gradient(180deg, rgba(74, 14, 90, 0.2) 0%, rgba(26, 0, 51, 0.4) 100%);
+}
+
+.text-accent-gradient {
+  background: linear-gradient(135deg, #FF8C00 0%, #FFD700 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glow effects */
+.glow-orange {
+  box-shadow: 0 0 30px rgba(255, 140, 0, 0.4), 0 0 60px rgba(255, 215, 0, 0.2);
+}
+
+.glow-purple {
+  box-shadow: 0 0 30px rgba(123, 44, 191, 0.4), 0 0 60px rgba(74, 14, 90, 0.2);
+}
