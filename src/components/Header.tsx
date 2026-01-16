@@ -4,17 +4,18 @@ import { useData } from '../context/DataContext';
 
 export default function Header() {
   const { theme, toggleTheme } = useTheme();
-  const { profile } = useData();
+  const { profile, experiences, education, projects, skillCategories } = useData();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  // Only show nav links for sections that have data
   const navLinks = [
-    { href: '#about', label: 'About' },
-    { href: '#experience', label: 'Experience' },
-    { href: '#education', label: 'Education' },
-    { href: '#projects', label: 'Projects' },
-    { href: '#skills', label: 'Skills' },
-    { href: '#contact', label: 'Contact' },
-  ];
+    { href: '#about', label: 'About', show: true },
+    { href: '#experience', label: 'Experience', show: experiences.length > 0 },
+    { href: '#education', label: 'Education', show: education.length > 0 },
+    { href: '#projects', label: 'Projects', show: projects.length > 0 },
+    { href: '#skills', label: 'Skills', show: skillCategories.length > 0 },
+    { href: '#contact', label: 'Contact', show: true },
+  ].filter(link => link.show);
 
   const displayName = profile.name ? profile.name.split(' ')[0] : 'Portfolio';
 
