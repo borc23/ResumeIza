@@ -1,9 +1,49 @@
+import { useState, useEffect } from 'react';
 import { useData } from '../context/DataContext';
 import floatingImage from '../assets/Image-removebg-preview.png';
 import { HeroSkeleton } from './Skeletons';
 
 export default function Hero() {
   const { profile, loading } = useData();
+  const [displayText, setDisplayText] = useState('');
+  const [rotationIndex, setRotationIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    if (!profile.title) return;
+
+    const titles = profile.title.includes(',') 
+      ? profile.title.split(',').map(t => t.trim()) 
+      : [profile.title];
+    
+    // If only one title, just set it and return (no animation loop)
+    if (titles.length <= 1) {
+      setDisplayText(titles[0]);
+      return;
+    }
+
+    const currentFullText = titles[rotationIndex % titles.length];
+    const typeSpeed = isDeleting ? 50 : 100;
+
+    const timer = setTimeout(() => {
+      if (!isDeleting) {
+        setDisplayText(currentFullText.substring(0, displayText.length + 1));
+        if (displayText === currentFullText) {
+           // Wait longer before deleting
+           setTimeout(() => setIsDeleting(true), 2000);
+           return;
+        }
+      } else {
+        setDisplayText(currentFullText.substring(0, displayText.length - 1));
+        if (displayText === '') {
+          setIsDeleting(false);
+          setRotationIndex(prev => prev + 1);
+        }
+      }
+    }, typeSpeed);
+
+    return () => clearTimeout(timer);
+  }, [displayText, isDeleting, profile.title, rotationIndex]);
 
   if (loading) {
     return (
@@ -59,8 +99,9 @@ export default function Hero() {
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-2">
               {profile.name}
             </h1>
-            <p className="text-xl md:text-2xl text-accent-gradient font-medium mb-4">
-              {profile.title}
+            <p className="text-xl md:text-2xl text-accent-gradient font-medium mb-4 h-8">
+              {displayText}
+              {!profile.title?.includes(',') && displayText === profile.title ? '' : <span className="animate-pulse">|</span>}
             </p>
             <p className="text-gray-600 dark:text-gray-300 text-lg max-w-2xl mb-6 whitespace-pre-line">
               {profile.bio}

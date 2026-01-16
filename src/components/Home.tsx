@@ -8,18 +8,19 @@ import Contact from './Contact'
 import Footer from './Footer'
 import Chatbot from './Chatbot'
 import ScrollToTop from './ScrollToTop'
+import Reveal from './Reveal'
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-white dark:bg-black text-gray-900 dark:text-white">
       <Header />
       <main>
-        <Hero />
-        <Experience />
-        <Education />
-        <Projects />
-        <Skills />
-        <Contact />
+        <Reveal><Hero /></Reveal>
+        <Reveal><Experience /></Reveal>
+        <Reveal><Education /></Reveal>
+        <Reveal><Projects /></Reveal>
+        <Reveal><Skills /></Reveal>
+        <Reveal><Contact /></Reveal>
       </main>
       <Footer />
       <ScrollToTop />
